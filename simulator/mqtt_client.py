@@ -14,7 +14,7 @@ import time
 
 import paho.mqtt.client as mqtt
 
-HOST = "mqtt.eu.thingsboard.cloud"   # US region: mqtt.thingsboard.cloud
+HOST = "mqtt.thingsboard.cloud"   # US region: mqtt.thingsboard.cloud
 PORT = 8883
 TOPIC = "v1/devices/me/telemetry"
 
@@ -38,8 +38,9 @@ def log(msg):
 
 
 class TBClient:
-    def __init__(self, token, buffer):
+    def __init__(self, token, buffer, name=""):
         self.token = token
+        self.name = name
         self.buf = buffer
         self.state = "OFFLINE"
         self.outage = False            # set by scenario / keyboard
@@ -201,6 +202,7 @@ class TBClient:
             if ok:
                 self.buf.mark_synced([r["id"] for r in rows])
                 self._fl_sent += len(rows)
+                self._fl_total = max(self._fl_total, self._fl_sent + self.buf.depth())
                 sent_total += len(rows)
                 self.backoff = BACKOFF_MIN            # delivery proven
             else:

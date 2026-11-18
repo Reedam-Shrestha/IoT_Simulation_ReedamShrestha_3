@@ -110,6 +110,9 @@ def main():
         log("[SETUP] no nodes to run")
         return
 
+    for n in nodes.values():
+        n.client.set_rate(len(nodes))
+
     start = time.time()
 
     def phys(wall):          # compressed physics clock fed to the generator
@@ -218,7 +221,7 @@ def main():
         for n in nodes.values():
             c = n.client
             if c.connected.is_set():
-                c.flush(batch)
+                c.flush(batch, drain=True)
             synced = n.buf.db.execute(
                 "SELECT COUNT(*) FROM telemetry_buffer WHERE synced=1").fetchone()[0]
             ratio = 100.0 * synced / n.generated if n.generated else 0.0
