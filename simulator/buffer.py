@@ -66,10 +66,11 @@ class Buffer:
     def next_batch(self, n=50):
         """Oldest unsynced rows first, as a list of dicts."""
         cur = self.db.execute(
-            "SELECT id, ts_ms, ph, turbidity_ntu, tds_ppm, water_temp_c, flow_lpm, lat, lon "
+            "SELECT id, ts_ms, ph, turbidity_ntu, tds_ppm, water_temp_c, "
+            "flow_lpm, lat, lon "
             "FROM telemetry_buffer WHERE synced=0 ORDER BY ts_ms LIMIT ?", (n,))
         cols = ["id", "ts_ms", "ph", "turbidity_ntu", "tds_ppm",
-                "water_temp_c", "flow_lpm"]
+                "water_temp_c", "flow_lpm", "lat", "lon"]
         return [dict(zip(cols, r)) for r in cur.fetchall()]
 
     def mark_synced(self, ids):
