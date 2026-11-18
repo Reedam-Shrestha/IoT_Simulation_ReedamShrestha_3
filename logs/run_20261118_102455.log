@@ -1,0 +1,97 @@
+[10:24:55] [SETUP] node2 has no token in tokens.json - skipped
+[10:24:55] [SETUP] node3 has no token in tokens.json - skipped
+[10:24:55] [START] nodes=['node1'] speed=10x keys: i o s 1 2 3 q
+[10:24:56] [ONLINE] connected
+[10:24:56] [LIVE] node1 ph=7.03 NTU=5.2 TDS=203 T=16.1 F=11.6 | buffer=0
+[10:25:01] [LIVE] node1 ph=7.04 NTU=5.6 TDS=205 T=16.4 F=11.5 | buffer=0
+[10:25:06] [LIVE] node1 ph=7.06 NTU=5.1 TDS=205 T=16.9 F=11.6 | buffer=0
+[10:25:11] [LIVE] node1 ph=7.06 NTU=5.5 TDS=207 T=16.6 F=11.4 | buffer=0
+[10:25:16] [LIVE] node1 ph=7.07 NTU=5.6 TDS=207 T=16.4 F=11.1 | buffer=0
+[10:25:21] [LIVE] node1 ph=7.07 NTU=5.7 TDS=204 T=16.4 F=12.0 | buffer=0
+[10:25:26] [LIVE] node1 ph=7.07 NTU=5.5 TDS=204 T=16.2 F=11.4 | buffer=0
+[10:25:31] [LIVE] node1 ph=7.05 NTU=5.4 TDS=209 T=16.5 F=11.8 | buffer=0
+[10:25:36] [LIVE] node1 ph=7.07 NTU=5.5 TDS=199 T=16.3 F=11.8 | buffer=0
+[10:25:40] [EVENT] intrusion on node1, peak 400 NTU
+[10:25:41] [LIVE] node1 ph=7.08 NTU=5.2 TDS=202 T=16.7 F=13.8 | buffer=0
+[10:25:46] [LIVE] node1 ph=6.64 NTU=114.7 TDS=291 T=16.5 F=13.9 | buffer=0 BURST
+[10:25:47] [LIVE] node1 ph=6.59 NTU=136.7 TDS=310 T=16.4 F=13.0 | buffer=0 BURST
+[10:25:48] [LIVE] node1 ph=6.49 NTU=158.7 TDS=328 T=16.4 F=13.1 | buffer=0 BURST
+[10:25:49] [LIVE] node1 ph=6.48 NTU=180.8 TDS=343 T=16.7 F=13.7 | buffer=0 BURST
+[10:25:50] [LIVE] node1 ph=6.44 NTU=203.2 TDS=361 T=16.5 F=12.1 | buffer=0 BURST
+[10:25:51] [LIVE] node1 ph=6.39 NTU=224.7 TDS=379 T=16.5 F=13.0 | buffer=0 BURST
+[10:25:52] [LIVE] node1 ph=6.37 NTU=245.9 TDS=395 T=16.3 F=13.1 | buffer=0 BURST
+[10:25:53] [LIVE] node1 ph=6.36 NTU=268.9 TDS=414 T=16.5 F=12.3 | buffer=0 BURST
+[10:25:54] [LIVE] node1 ph=6.35 NTU=290.8 TDS=428 T=16.2 F=12.6 | buffer=0 BURST
+[10:25:55] [LIVE] node1 ph=6.34 NTU=312.2 TDS=454 T=16.3 F=12.8 | buffer=0 BURST
+[10:25:56] [LIVE] node1 ph=6.29 NTU=333.9 TDS=466 T=16.6 F=12.3 | buffer=0 BURST
+[10:25:57] [LIVE] node1 ph=6.28 NTU=356.1 TDS=481 T=16.6 F=12.9 | buffer=0 BURST
+[10:25:58] [LIVE] node1 ph=6.30 NTU=378.3 TDS=505 T=16.2 F=13.0 | buffer=0 BURST
+[10:25:59] [LIVE] node1 ph=6.31 NTU=399.5 TDS=518 T=16.4 F=12.5 | buffer=0 BURST
+[10:26:00] [LIVE] node1 ph=6.27 NTU=397.9 TDS=517 T=16.3 F=13.1 | buffer=0 BURST
+[10:26:01] [LIVE] node1 ph=6.28 NTU=395.9 TDS=515 T=16.6 F=13.0 | buffer=0 BURST
+[10:26:02] [LIVE] node1 ph=6.27 NTU=393.6 TDS=516 T=16.2 F=12.3 | buffer=0 BURST
+[10:26:03] [LIVE] node1 ph=6.28 NTU=391.6 TDS=515 T=16.3 F=12.6 | buffer=0 BURST
+[10:26:04] [LIVE] node1 ph=6.26 NTU=389.7 TDS=515 T=16.5 F=11.8 | buffer=0 BURST
+[10:26:05] [LIVE] node1 ph=6.28 NTU=386.7 TDS=509 T=16.7 F=12.9 | buffer=0 BURST
+[10:26:06] [LIVE] node1 ph=6.27 NTU=385.2 TDS=511 T=16.2 F=12.6 | buffer=0 BURST
+[10:26:07] [LIVE] node1 ph=6.26 NTU=383.7 TDS=507 T=16.5 F=12.9 | buffer=0 BURST
+[10:26:08] [LIVE] node1 ph=6.27 NTU=380.5 TDS=506 T=16.7 F=12.6 | buffer=0 BURST
+[10:26:09] [LIVE] node1 ph=6.27 NTU=378.8 TDS=508 T=16.3 F=13.0 | buffer=0 BURST
+[10:26:10] [LIVE] node1 ph=6.28 NTU=376.4 TDS=507 T=16.3 F=12.2 | buffer=0 BURST
+[10:26:11] [LIVE] node1 ph=6.28 NTU=374.6 TDS=499 T=16.7 F=11.2 | buffer=0 BURST
+[10:26:12] [LIVE] node1 ph=6.32 NTU=372.3 TDS=496 T=16.1 F=12.0 | buffer=0 BURST
+[10:26:13] [LIVE] node1 ph=6.30 NTU=370.1 TDS=493 T=16.6 F=12.7 | buffer=0 BURST
+[10:26:14] [LIVE] node1 ph=6.31 NTU=368.3 TDS=494 T=16.7 F=11.9 | buffer=0 BURST
+[10:26:15] [LIVE] node1 ph=6.32 NTU=366.8 TDS=490 T=16.5 F=12.0 | buffer=0 BURST
+[10:26:16] [LIVE] node1 ph=6.32 NTU=364.5 TDS=493 T=16.5 F=11.9 | buffer=0 BURST
+[10:26:17] [LIVE] node1 ph=6.25 NTU=362.6 TDS=487 T=16.6 F=11.8 | buffer=0 BURST
+[10:26:18] [LIVE] node1 ph=6.23 NTU=360.8 TDS=485 T=16.5 F=12.0 | buffer=0 BURST
+[10:26:19] [LIVE] node1 ph=6.30 NTU=359.0 TDS=488 T=16.6 F=11.8 | buffer=0 BURST
+[10:26:20] [LIVE] node1 ph=6.30 NTU=356.6 TDS=480 T=16.3 F=11.8 | buffer=0 BURST
+[10:26:21] [LIVE] node1 ph=6.27 NTU=354.8 TDS=486 T=16.9 F=11.7 | buffer=0 BURST
+[10:26:22] [LIVE] node1 ph=6.30 NTU=352.9 TDS=484 T=16.5 F=12.6 | buffer=0 BURST
+[10:26:23] [LIVE] node1 ph=6.26 NTU=351.0 TDS=481 T=16.3 F=12.4 | buffer=0 BURST
+[10:26:24] [LIVE] node1 ph=6.28 NTU=348.9 TDS=475 T=16.4 F=12.1 | buffer=0 BURST
+[10:26:25] [LIVE] node1 ph=6.28 NTU=347.1 TDS=480 T=16.7 F=11.6 | buffer=0 BURST
+[10:26:26] [LIVE] node1 ph=6.30 NTU=345.0 TDS=480 T=16.5 F=11.7 | buffer=0 BURST
+[10:26:27] [LIVE] node1 ph=6.33 NTU=343.1 TDS=478 T=16.6 F=11.9 | buffer=0 BURST
+[10:26:28] [LIVE] node1 ph=6.31 NTU=341.6 TDS=472 T=16.6 F=11.8 | buffer=0 BURST
+[10:26:29] [LIVE] node1 ph=6.33 NTU=339.9 TDS=476 T=16.1 F=12.5 | buffer=0 BURST
+[10:26:30] [LIVE] node1 ph=6.30 NTU=337.8 TDS=468 T=16.7 F=12.3 | buffer=0 BURST
+[10:26:31] [LIVE] node1 ph=6.31 NTU=336.0 TDS=468 T=16.7 F=11.7 | buffer=0 BURST
+[10:26:32] [LIVE] node1 ph=6.30 NTU=333.7 TDS=464 T=16.6 F=12.7 | buffer=0 BURST
+[10:26:33] [LIVE] node1 ph=6.31 NTU=331.7 TDS=466 T=16.6 F=12.3 | buffer=0 BURST
+[10:26:34] [LIVE] node1 ph=6.30 NTU=330.7 TDS=463 T=16.2 F=11.7 | buffer=0 BURST
+[10:26:35] [LIVE] node1 ph=6.32 NTU=328.9 TDS=461 T=16.6 F=11.9 | buffer=0 BURST
+[10:26:36] [LIVE] node1 ph=6.29 NTU=327.0 TDS=460 T=16.3 F=12.1 | buffer=0 BURST
+[10:26:37] [LIVE] node1 ph=6.33 NTU=324.8 TDS=458 T=16.4 F=12.4 | buffer=0 BURST
+[10:26:38] [LIVE] node1 ph=6.30 NTU=323.4 TDS=456 T=16.7 F=11.2 | buffer=0 BURST
+[10:26:39] [LIVE] node1 ph=6.32 NTU=321.2 TDS=456 T=16.5 F=11.8 | buffer=0 BURST
+[10:26:40] [LIVE] node1 ph=6.34 NTU=319.5 TDS=454 T=16.6 F=11.5 | buffer=0 BURST
+[10:26:41] [LIVE] node1 ph=6.32 NTU=318.4 TDS=448 T=16.6 F=12.1 | buffer=0 BURST
+[10:26:42] [LIVE] node1 ph=6.33 NTU=316.2 TDS=451 T=16.5 F=11.9 | buffer=0 BURST
+[10:26:43] [LIVE] node1 ph=6.30 NTU=313.6 TDS=451 T=16.7 F=12.0 | buffer=0 BURST
+[10:26:44] [LIVE] node1 ph=6.33 NTU=313.0 TDS=448 T=16.4 F=11.7 | buffer=0 BURST
+[10:26:45] [LIVE] node1 ph=6.36 NTU=311.0 TDS=445 T=16.7 F=10.8 | buffer=0 BURST
+[10:26:46] [LIVE] node1 ph=6.32 NTU=309.6 TDS=443 T=16.4 F=11.4 | buffer=0 BURST
+[10:26:47] [LIVE] node1 ph=6.30 NTU=307.7 TDS=444 T=16.5 F=11.8 | buffer=0 BURST
+[10:26:48] [LIVE] node1 ph=6.30 NTU=306.5 TDS=443 T=16.4 F=11.9 | buffer=0 BURST
+[10:26:49] [LIVE] node1 ph=6.34 NTU=304.1 TDS=440 T=16.5 F=11.7 | buffer=0 BURST
+[10:26:50] [LIVE] node1 ph=6.32 NTU=302.5 TDS=439 T=16.5 F=11.5 | buffer=0 BURST
+[10:26:51] [LIVE] node1 ph=6.34 NTU=301.2 TDS=442 T=16.6 F=11.3 | buffer=0 BURST
+[10:26:52] [LIVE] node1 ph=6.33 NTU=299.1 TDS=441 T=16.6 F=11.1 | buffer=0 BURST
+[10:26:53] [LIVE] node1 ph=6.32 NTU=297.7 TDS=435 T=16.4 F=11.0 | buffer=0 BURST
+[10:26:54] [LIVE] node1 ph=6.32 NTU=296.2 TDS=439 T=16.6 F=11.2 | buffer=0 BURST
+[10:26:55] [LIVE] node1 ph=6.31 NTU=294.7 TDS=440 T=16.5 F=12.2 | buffer=0 BURST
+[10:26:56] [LIVE] node1 ph=6.30 NTU=293.0 TDS=434 T=16.5 F=12.0 | buffer=0 BURST
+[10:26:57] [LIVE] node1 ph=6.33 NTU=291.8 TDS=434 T=16.4 F=10.9 | buffer=0 BURST
+[10:26:58] [LIVE] node1 ph=6.34 NTU=289.4 TDS=434 T=16.3 F=12.1 | buffer=0 BURST
+[10:26:59] [LIVE] node1 ph=6.34 NTU=287.7 TDS=433 T=16.6 F=11.9 | buffer=0 BURST
+[10:27:00] [LIVE] node1 ph=6.34 NTU=286.7 TDS=432 T=16.5 F=11.3 | buffer=0 BURST
+[10:27:01] [LIVE] node1 ph=6.36 NTU=284.6 TDS=425 T=16.7 F=12.1 | buffer=0 BURST
+[10:27:02] [LIVE] node1 ph=6.36 NTU=284.3 TDS=429 T=16.3 F=11.5 | buffer=0 BURST
+[10:27:03] [LIVE] node1 ph=6.35 NTU=282.6 TDS=427 T=16.6 F=10.8 | buffer=0 BURST
+[10:27:04] [LIVE] node1 ph=6.31 NTU=280.2 TDS=419 T=16.7 F=12.0 | buffer=0 BURST
+[10:27:04] [STOP] Ctrl+C
+[10:27:04] [SUMMARY] node1 generated=89 synced=89 unsynced=0 evicted=0 delivery=100.00%
+[10:27:05] [NETWORK] disconnected rc=0

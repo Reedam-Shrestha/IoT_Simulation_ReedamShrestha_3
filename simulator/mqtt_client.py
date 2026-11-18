@@ -73,7 +73,7 @@ class TBClient:
         budget = SAFETY * min(DEVICE_DP_PER_S, TENANT_DP_PER_S / max(1, n_nodes))
         self.budget = budget
         self.max_rows = max(1, int(budget // KEYS_PER_ROW))
-        log(f"[RATE] {n_nodes} node(s): max {self.max_rows} rows per publish, "
+        log(f"[RATE] {self.name}: {n_nodes} node(s), max {self.max_rows} rows per publish, "
             f"{budget:.0f} data points/s")
 
     # ---------- callbacks ----------
@@ -82,20 +82,20 @@ class TBClient:
             self.auth_failed = False
             self.state = "ONLINE"
             self.connected.set()
-            log("[ONLINE] connected")
+            log(f"[ONLINE] {self.name} connected")
         elif rc in RC_BAD_AUTH:
             self.auth_failed = True
-            log(f"[AUTH FAILURE] rc={rc}: check access token (not retrying fast)")
+            log(f"[AUTH FAILURE] {self.name} rc={rc}: check access token (not retrying fast)")
             self.c.disconnect()   # we own reconnection, not paho
         else:
-            log(f"[NETWORK] connect refused rc={rc}")
+            log(f"[NETWORK] {self.name} connect refused rc={rc}")
 
     def _on_disconnect(self, c, ud, rc):
         self.connected.clear()
         if self.outage or self.auth_failed:
             return
         if rc != 0:
-            log(f"[NETWORK] connection lost rc={rc}")
+            log(f"[NETWORK] {self.name} connection lost rc={rc}")
             self._schedule_retry()
             self.c.disconnect()   # stop paho's own auto-reconnect
 
@@ -112,14 +112,14 @@ class TBClient:
         self.c.disconnect()
         self.connected.clear()
         self._fl_active = False
-        log(f"[OUTAGE] link down, buffer={self.buf.depth()}")
+        log(f"[OUTAGE] {self.name} link down, buffer={self.buf.depth()}")
 
     def end_outage(self):
         self.outage = False
         self.state = "RECONNECTING"
         self.next_try = 0
         self.backoff = BACKOFF_MIN
-        log("[RECONNECTING] outage ended")
+        log(f"[RECONNECTING] {self.name} outage ended")
 
     # ---------- connection ----------
     def _schedule_retry(self):
@@ -127,7 +127,7 @@ class TBClient:
         delay = wait * random.uniform(0.5, 1.0)       # jitter
         self.next_try = time.time() + delay
         kind = "auth" if self.auth_failed else "network"
-        log(f"[RECONNECTING] {kind} retry in {delay:.1f}s (backoff {self.backoff}s)")
+        log(f"[RECONNECTING] {self.name} {kind} retry in {delay:.1f}s (backoff {self.backoff}s)")
         self.backoff = min(self.backoff * 2, BACKOFF_MAX)
 
     def try_connect(self):
@@ -142,7 +142,7 @@ class TBClient:
             self.c.loop_start()
             self.connected.wait(timeout=8)
         except (OSError, ssl.SSLError) as e:
-            log(f"[NETWORK] connect failed: {e}")
+            log(f"[NETWORK] {self.name} connect failed: {e}")
         if not self.connected.is_set() and time.time() >= self.next_try:
             self._schedule_retry()
 
@@ -196,7 +196,7 @@ class TBClient:
                 self._fl_total = max(self._fl_total, self._fl_sent + self.buf.depth())
             if self._fl_total > 1:
                 self.state = "FLUSHING"
-                log(f"[FLUSHING {self._fl_sent}/{self._fl_total}] batch={len(rows)}")
+                log(f"[FLUSHING] {self.name} {self._fl_sent}/{self._fl_total} batch={len(rows)}")
             ok = self._publish_wait([self._to_msg(r) for r in rows])
             self.next_pub = time.time() + len(rows) * KEYS_PER_ROW / self.budget
             if ok:
@@ -209,14 +209,14 @@ class TBClient:
                 self.max_rows = max(1, self.max_rows // 2)
                 n = max(1, min(n, self.max_rows))
                 self.next_pub = time.time() + 5
-                log(f"[NETWORK] batch not confirmed; max batch now {self.max_rows}")
+                log(f"[NETWORK] {self.name} batch not confirmed; max batch now {self.max_rows}")
                 break
             if not drain:
                 break
         if self._fl_active and self.buf.depth() == 0:
             if self._fl_sent > 1:
                 dt = max(time.time() - self._fl_t0, 1e-6)
-                log(f"[FLUSHED] {self._fl_sent} rows in {dt:.1f}s = "
+                log(f"[FLUSHED] {self.name} {self._fl_sent} rows in {dt:.1f}s = "
                     f"{self._fl_sent/dt:.1f} rows/s, buffer empty")
             self._fl_active = False
         if self.connected.is_set() and self.state == "FLUSHING" and self.buf.depth() == 0:

@@ -64,7 +64,7 @@ class Node:
                 if os.path.exists(path + ext):
                     os.remove(path + ext)
         self.buf = Buffer(path, sc["buffer_max_rows"])
-        self.client = TBClient(token, self.buf)
+        self.client = TBClient(token, self.buf, self.name)
         self.due = 0.0
         self.generated = 0
         self.evicted = 0
