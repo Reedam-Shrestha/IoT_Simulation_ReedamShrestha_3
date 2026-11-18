@@ -67,9 +67,9 @@ class NodeGenerator:
         # TDS: rises in proportion to the extra turbidity (coupling)
         tds = self.base_tds + self.K_TDS * (turb - self.base_turb) + n(0, 3)
 
-        # pH: non-linear (saturating) drop with a hard floor
-        drop = self.PH_DROP * (1 - math.exp(-3 * i))
-        ph = max(self.PH_FLOOR, self.base_ph - drop + n(0, 0.02))
+        # soft floor: pH decays toward PH_FLOOR but never goes below it
+        ph = self.PH_FLOOR + (self.base_ph - self.PH_FLOOR) * math.exp(-2.5 * i)
+        ph = ph + n(0, 0.02)
 
         # Temperature: diurnal sine (coolest ~3am, warmest ~3pm) plus noise
         hour = (t / 3600.0) % 24
