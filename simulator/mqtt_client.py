@@ -1,5 +1,5 @@
 """
-mqtt_client.py - MQTT over TLS (8883) to ThingsBoard with QoS 1,
+mqtt_client.py - MQTT over TLS (8883) to ThingsBoard Cloud with QoS 1,
 exponential backoff with jitter, and batched replay from SQLite.
 
 Live and replayed messages both use the client-stamped form:
@@ -13,12 +13,14 @@ import threading
 import time
 
 import paho.mqtt.client as mqtt
-HOST = "mqtt.eu.thingsboard.cloud"
+
+HOST = "mqtt.eu.thingsboard.cloud"   # US region: mqtt.thingsboard.cloud
 PORT = 8883
 TOPIC = "v1/devices/me/telemetry"
 
-BACKOFF_MIN = 2      # s: fast recovery after a short blip
-BACKOFF_MAX = 60     # s: caps radio wake-ups during a long outage
+BACKOFF_MIN = 2       # s: fast recovery after a short blip
+BACKOFF_MAX = 60      # s: caps radio wake-ups during a long outage
+AUTH_RETRY = 600      # s: a bad token will not fix itself, so retry rarely
 PUBLISH_TIMEOUT = 10  # s to wait for PUBACK
 
 RC_BAD_AUTH = (4, 5)  # bad credentials / not authorised (MQTT 3.1.1)
@@ -33,7 +35,7 @@ class TBClient:
         self.token = token
         self.buf = buffer
         self.state = "OFFLINE"
-        self.outage = False            # set by scenario/keyboard
+        self.outage = False            # set by scenario / keyboard
         self.connected = threading.Event()
         self.auth_failed = False
         self.backoff = BACKOFF_MIN
@@ -56,6 +58,7 @@ class TBClient:
             self.connected.set()
             self.auth_failed = False
             self.backoff = BACKOFF_MIN
+            self.state = "ONLINE"
             log("[ONLINE] connected")
         elif rc in RC_BAD_AUTH:
             self.auth_failed = True
@@ -87,15 +90,15 @@ class TBClient:
         self.outage = False
         self.state = "RECONNECTING"
         self.next_try = 0
+        self.backoff = BACKOFF_MIN
         log("[RECONNECTING] outage ended")
 
     # ---------- connection ----------
     def try_connect(self):
-        """Call every tick. Non-blocking apart from the connect attempt."""
+        """Call every tick. Returns quickly unless a connect attempt is due."""
         if self.outage or self.connected.is_set():
             return
-        now = time.time()
-        if now < self.next_try:
+        if time.time() < self.next_try:
             return
         try:
             self.c.connect(HOST, PORT, keepalive=60)
@@ -105,10 +108,11 @@ class TBClient:
             log(f"[NETWORK] connect failed: {e}")
         if not self.connected.is_set():
             self.c.loop_stop()
-            wait = 600 if self.auth_failed else self.backoff
+            wait = AUTH_RETRY if self.auth_failed else self.backoff
             delay = wait * random.uniform(0.5, 1.0)   # jitter
             self.next_try = time.time() + delay
-            log(f"[RECONNECTING] retry in {delay:.1f}s (backoff {self.backoff}s)")
+            kind = "auth" if self.auth_failed else "network"
+            log(f"[RECONNECTING] {kind} retry in {delay:.1f}s (backoff {self.backoff}s)")
             self.backoff = min(self.backoff * 2, BACKOFF_MAX)
 
     # ---------- publish ----------
@@ -141,7 +145,7 @@ class TBClient:
             rows = self.buf.next_batch(batch_size)
             if not rows:
                 break
-            if total > batch_size:
+            if total > 1:
                 self.state = "FLUSHING"
                 log(f"[FLUSHING {sent}/{total}]")
             if self._publish_wait([self._to_msg(r) for r in rows]):
@@ -150,7 +154,7 @@ class TBClient:
             else:
                 log("[NETWORK] batch not confirmed, will retry")
                 break
-        if sent:
+        if sent > 1:
             dt = max(time.time() - t0, 1e-6)
             log(f"[FLUSHED] {sent} rows in {dt:.2f}s = {sent/dt:.1f} rows/s")
         if self.connected.is_set():

@@ -1,0 +1,22 @@
+{
+  "speed": 10,
+  "baseline_interval_s": 5,
+  "burst_interval_s": 1,
+  "batch_size": 50,
+  "buffer_max_rows": 12000,
+  "default_peak_ntu": 400,
+  "duration_s": 720,
+  "nodes": [
+    {"name": "node1", "site": "Bidur tap",             "lat": 27.9124, "lon": 85.1582, "seed": 1},
+    {"name": "node2", "site": "Trishuli tanker point", "lat": 27.9167, "lon": 85.1500, "seed": 2},
+    {"name": "node3", "site": "Uttargaya reservoir",   "lat": 28.0250, "lon": 85.2000, "seed": 3}
+  ],
+  "timeline": [
+    {"t": 45,  "node": "node1", "event": "intrusion", "peak_ntu": 400},
+    {"t": 180, "node": "all",   "event": "outage_start"},
+    {"t": 300, "node": "all",   "event": "outage_end"},
+    {"t": 330, "node": "node2", "event": "intrusion", "peak_ntu": 120},
+    {"t": 420, "node": "node3", "event": "supply_cut_start"},
+    {"t": 540, "node": "node3", "event": "supply_cut_end"}
+  ]
+}

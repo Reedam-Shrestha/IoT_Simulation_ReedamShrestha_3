@@ -67,8 +67,11 @@ class NodeGenerator:
         # TDS: rises in proportion to the extra turbidity (coupling)
         tds = self.base_tds + self.K_TDS * (turb - self.base_turb) + n(0, 3)
 
-        # soft floor: pH decays toward PH_FLOOR but never goes below it
-        ph = self.PH_FLOOR + (self.base_ph - self.PH_FLOOR) * math.exp(-2.5 * i)
+        # pH: non-linear, saturating, soft floor. The response scales with
+        # event size (full effect at 400 NTU and above), so a small event
+        # can raise a Warning without a Critical pH alarm.
+        i_ph = i * min(1.0, peak / 400.0)
+        ph = self.PH_FLOOR + (self.base_ph - self.PH_FLOOR) * math.exp(-2.5 * i_ph)
         ph = ph + n(0, 0.02)
 
         # Temperature: diurnal sine (coolest ~3am, warmest ~3pm) plus noise

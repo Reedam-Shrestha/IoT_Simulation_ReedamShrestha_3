@@ -25,6 +25,9 @@ CREATE TABLE IF NOT EXISTS telemetry_buffer (
 CREATE INDEX IF NOT EXISTS idx_unsynced ON telemetry_buffer(synced, ts_ms);
 """
 
+COLS = ["id", "ts_ms", "ph", "turbidity_ntu", "tds_ppm",
+        "water_temp_c", "flow_lpm", "lat", "lon"]
+
 
 class Buffer:
     def __init__(self, path="buffer.db", max_rows=12000):
@@ -34,7 +37,8 @@ class Buffer:
         self.db.commit()
 
     def add(self, ts_ms, v):
-        """Save one reading. v is the dict from the generator."""
+        """Save one reading. v is the dict from the generator.
+        Returns the number of rows evicted (0 normally)."""
         self.db.execute(
             "INSERT INTO telemetry_buffer "
             "(ts_ms, ph, turbidity_ntu, tds_ppm, water_temp_c, flow_lpm, lat, lon) "
@@ -69,9 +73,7 @@ class Buffer:
             "SELECT id, ts_ms, ph, turbidity_ntu, tds_ppm, water_temp_c, "
             "flow_lpm, lat, lon "
             "FROM telemetry_buffer WHERE synced=0 ORDER BY ts_ms LIMIT ?", (n,))
-        cols = ["id", "ts_ms", "ph", "turbidity_ntu", "tds_ppm",
-                "water_temp_c", "flow_lpm", "lat", "lon"]
-        return [dict(zip(cols, r)) for r in cur.fetchall()]
+        return [dict(zip(COLS, r)) for r in cur.fetchall()]
 
     def mark_synced(self, ids):
         self.db.executemany(
